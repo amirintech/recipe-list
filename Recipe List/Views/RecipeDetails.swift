@@ -8,13 +8,49 @@
 import SwiftUI
 
 struct RecipeDetails: View {
+    var recipe: Recipe
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ScrollView {
+            VStack(alignment: .leading) {
+                // MARK: Recipe Image
+                Image(recipe.image)
+                    .resizable()
+                    .scaledToFit()
+                
+                // MARK: Ingredients
+                VStack(alignment: .leading) {
+                    Text("Ingredients")
+                        .font(.headline)
+                        .padding(.top, 20)
+                        .padding(.bottom, 5)
+                    
+                    ForEach(recipe.ingredients, id: \.self) { ing in
+                        Text("- " + ing)
+                            .padding(.bottom, 1)
+                            
+                    }
+                }.padding()
+                
+                // MARK: Directions
+                VStack(alignment: .leading) {
+                    Text("Directions: ")
+                        .font(.headline)
+                        .padding(.top, 20)
+                        .padding(.bottom, 5)
+                    
+                    ForEach(0..<recipe.directions.count, id: \.self) { i in
+                        Text(String(i + 1) + ") " + recipe.directions[i])
+                            .padding(.bottom, 1)
+                    }
+                }.padding()
+            }.navigationBarTitle(recipe.name)
+        }
     }
 }
 
 struct RecipeDetails_Previews: PreviewProvider {
     static var previews: some View {
-        RecipeDetails()
+        RecipeDetails(recipe: RecipeView().recipes[0])
     }
 }
