@@ -16,7 +16,9 @@ struct RecipeDetails: View {
                 // MARK: Recipe Image
                 Image(recipe.image)
                     .resizable()
-                    .scaledToFit()
+                    .scaledToFill()
+                    .frame(width: UIScreen.main.bounds.width, height: 200)
+                    .clipped()
                 
                 // MARK: Ingredients
                 VStack(alignment: .leading) {
